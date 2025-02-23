@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .settings-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            height: 90%;
+            overflow-y: auto;
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 20px;
+        }
+        .profile-name {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .setting-option {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .setting-option:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <div class="profile-name">Profile Name</div>
+        </div>
+        <div class="setting-option">
+            <span>Theme</span>
+            <span>&gt;</span>
+        </div>
+        <div class="setting-option">
+            <span>Font Size</span>
+            <span>&gt;</span>
+        </div>
+        <div class="setting-option">
+            <span>Notifications</span>
+            <span>&gt;</span>
+        </div>
+        <div class="setting-option">
+            <span>Privacy</span>
+            <span>&gt;</span>
+        </div>
+        <div class="setting-option">
+            <span>Sign Out</span>
+            <span>&gt;</span>
+        </div>
+    </div>
+</body>
+</html>
