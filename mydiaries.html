@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Diaries</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .diaries-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .diary-block {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .diary-block:hover {
+            transform: translateY(-5px);
+        }
+        .diary-date {
+            font-size: 1em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .diary-preview {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Diaries</h1>
+    <div class="diaries-container">
+        <div class="diary-block">
+            <div class="diary-date">2025-02-22</div>
+            <div class="diary-preview">This is a preview of the journal entry...</div>
+        </div>
+        <div class="diary-block">
+            <div class="diary-date">2025-02-21</div>
+            <div class="diary-preview">This is a preview of the journal entry...</div>
+        </div>
+        <!-- Add more diary blocks as needed -->
+    </div>
+</body>
+</html>
