@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Settings from "./pages/Settings";
+import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
 
-function Home() {
-    return <h2>Home Page</h2>;
-}
-
-
 function App() {
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [isDropdownActive, setIsDropdownActive] = useState(false);
-    const [entries, setEntries] = useState([]);
+    const navigate = useNavigate();  
+
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [searchTerm, setSearchTerm] = useState(""); // Stores search text
 
     const quotes = [
         "Believe you can and you're halfway there.",
@@ -27,15 +21,12 @@ function App() {
         "Don't stop when you're tired. Stop when you're done."
     ];
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (!event.target.closest(".dropdown")) {
-                setIsDropdownActive(false);
-            }
-        };
-        document.addEventListener("click", handleClickOutside);
-        return () => document.removeEventListener("click", handleClickOutside);
-    }, []);
+    // ✅ Define moods inside App component
+    const moodEntries = ["Happy", "Sad", "Excited", "Angry", "Relaxed"];
+    
+    const filteredMoods = moodEntries.filter((mood) =>
+        mood.toLowerCase().includes(searchTerm.toLowerCase()) // Case-insensitive search
+    );
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -46,58 +37,66 @@ function App() {
     }, []);
 
     return (
-        <Router>
-            <div className="container">
-                <div className="header">header</div>
-
-                <div className="menu">
-                    <h2>Menu</h2>
-                    <ul>
-                        <li><Link to="/home">Home</Link></li>
-                        <li><Link to="/journal">Journal</Link></li>
-                        <li><Link to="/moods">Moods</Link></li>
-                        <li><Link to="/settings">Settings</Link></li>
-                        <li><Link to="/logout">Logout</Link></li>
-                    </ul>
-                </div>
-
-                <div className="main">
-                    <h2>Home</h2>
-                    <p>
-                        eMoods is a user-friendly app for patients to track symptom data relating to Bipolar I and II disorders, Depression, PTSD, and Anxiety Disorders.
-                        Identify triggers and patterns to help prevent relapses, and enhance doctor's visits with detailed data exports.
-                    </p>
-                    <Routes>
-                        <Route path="/settings" element={<Settings />} />
-                    </Routes>
-                    <div className="carousel">
-                        <p className="quote">{quotes[currentIndex]}</p>
+        <div className="home-container">
+            <div className="header">
+                <div className="searchbar">
+                    <input
+                        className="searchbar"
+                        type="text"
+                        placeholder="Search moods..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    /> 
+                    <div className="dropdown-list">
+                    {searchTerm && filteredMoods.length > 0 && (
+                        <ul>
+                            {filteredMoods.map((mood, index) => (
+                                <li key={index} onClick={() => setSearchTerm(mood)}>
+                                    {mood}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                     </div>
-
-                </div>
-
-            
-                
-
-                <div className="sortbox1">
-                    <div className="dropbox">
-                        <label htmlFor="sort">Sort Down Your Journals</label>
-                        <br />
-                        <br />
-                        <select id="sort" defaultValue="">
-                            <option value="" disabled>Sort By</option>
-                            <option value="day">Daily Entries</option>
-                            <option value="week">Weekly Entries</option>
-                            <option value="month">Monthly Entries</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div className="entry">
-                    <h2><Link to="/entry"> + Add a new entry</Link></h2>
                 </div>
             </div>
-        </Router>
+
+            <div className="menu">
+                <h2>Menu</h2>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                    <li onClick={() => navigate("/mydiaries")} > Journals </li>
+                    <li><Link to="/moods">Moods</Link></li>
+                    <li onClick={() => navigate("/settings")} style={{ cursor: "pointer" }}>Settings</li>
+                    <li><Link to="/logout">Logout</Link></li>
+                </ul>
+            </div>
+
+            <div className="main">
+                <h2>Home</h2>
+                <p>
+                    eMoods is a user-friendly app for patients to track symptom data relating to Bipolar I and II disorders, Depression, PTSD, and Anxiety Disorders.
+                    Identify triggers and patterns to help prevent relapses, and enhance doctor's visits with detailed data exports.
+                </p>
+                
+                <div className="carousel">
+                    <p className="quote">{quotes[currentIndex]}</p>
+                </div>
+            </div>
+
+            <div className="sortbox1">
+                Select Your Current Mood:
+                <ul>
+                    {moodEntries.map((mood, index) => (
+                        <li key={index}>{mood}</li>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="entry">
+                <h2><Link to="/entry"> + Add a new entry</Link></h2>
+            </div>
+        </div>
     );
 }
 
